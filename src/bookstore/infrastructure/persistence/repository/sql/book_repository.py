@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from bookstore.domain.aggregates.book import Book
 from bookstore.domain.value_objects.money import Money
-from bookstore.domain.base import BaseRepository
+from bookstore.infrastructure.persistence.repository.base import BaseRepository
 from bookstore.infrastructure.persistence.repository.sql.models import books_table
 
 
@@ -50,8 +50,7 @@ class SQLBookRepository(BaseRepository[Book]):
         )
 
     async def update(self, book: Book) -> None:
-        query = (
-            books_table.update()
+        query = (books_table.update()
             .where(
                 books_table.c.id == book.id,
                 books_table.c.version == book.version
@@ -77,12 +76,7 @@ class SQLBookRepository(BaseRepository[Book]):
         query = books_table.delete().where(books_table.c.id == id)
         await self._session.execute(query)
 
-    async def list(
-        self,
-        filters: Optional[Dict[str, Any]] = None,
-        skip: int = 0,
-        limit: int = 50
-    ) -> List[Book]:
+    async def list(self,filters: Optional[Dict[str, Any]] = None,skip: int = 0,limit: int = 50) -> List[Book]:
         query = select(books_table)
         
         if filters:

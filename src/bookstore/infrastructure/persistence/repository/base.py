@@ -1,6 +1,6 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from uuid import UUID
-from typin import Generic, TypeVar, List, Dict, Any, Optional
+from typing import Generic, TypeVar, List, Dict, Any, Optional
 
 from bookstore.domain.base import Entity
 
@@ -29,7 +29,7 @@ class BaseRepository(ABC, Generic[T]):
 class SearchableRepository(BaseRepository[T]):
 
     @abstractmethod
-    async def search(self, query: str, fields: List[str], skip: int: 0, limit: int = 50) -> List[T]:
+    async def search(self, query: str, fields: List[str], skip: int= 0, limit: int = 50) -> List[T]:
         raise NotImplementedError
 
 class CacheableRepository(BaseRepository[T]):

@@ -1,11 +1,11 @@
-
 from datetime import datetime
 from uuid import UUID
+# from typing import List, Optional, Tuple
 
-from sqlalchemy import (
-    Table, Column, ForeignKey,
+
+from sqlalchemy import (Table, Column, ForeignKey,
     String, Integer, Numeric, Text, DateTime, Enum,
-    MetaData
+    MetaData, Boolean
             )
 from sqlalchemy.dialects.postgresql import UUID as PostgresUUID
 

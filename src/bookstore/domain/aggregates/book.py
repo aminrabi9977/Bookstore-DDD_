@@ -7,7 +7,7 @@ from bookstore.domain.value_objects.money import Money
 from bookstore.domain.events.book_events import (BookCreated, BookPriceChanged, BookUnitAdded, BookUnitRemoved)
 
 
-class book(AggregateRoot):
+class Book(AggregateRoot):
     def __init__(self, id: Optional[UUID], title: str, price: Money, 
     isbn: str, author_id: UUID,
     genre_id: UUID,
