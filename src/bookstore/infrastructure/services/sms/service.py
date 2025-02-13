@@ -2,7 +2,7 @@ import logging
 from typing import List, Dict, Optional
 from bookstore.infrastructure.services.sms.circuit_breaker import CircuitBreaker
 from bookstore.infrastructure.services.sms.providers.base import SMSProvider, SMSProviderError
-from bookstore.infrastructure.services.sms.providers.implementations import KavenegarProvider,
+from bookstore.infrastructure.services.sms.providers.implementations import KavenegarProvider
 
 
 logger = logging.getLogger(__name__)
@@ -21,24 +21,6 @@ class SMSService:
                 failure_threshold=failure_threshold,
                 recovery_timeout=recovery_timeout
             )
-            
-        # if 'signal' in providers_config:
-        #     self._providers.append(
-        #         SignalProvider(providers_config['signal'])
-        #     )
-        #     self._circuit_breakers['signal'] = CircuitBreaker(
-        #         failure_threshold=failure_threshold,
-        #         recovery_timeout=recovery_timeout
-        #     )
-            
-        # if 'smsir' in providers_config:
-        #     self._providers.append(
-        #         SMSIrProvider(providers_config['smsir'])
-        #     )
-        #     self._circuit_breakers['smsir'] = CircuitBreaker(
-        #         failure_threshold=failure_threshold,
-        #         recovery_timeout=recovery_timeout
-        #     )
 
         if not self._providers:
             raise ValueError("No SMS providers")
