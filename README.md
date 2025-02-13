@@ -44,32 +44,6 @@ The application will be available at:
 - API Documentation: http://localhost:8000/docs
 - RabbitMQ Management: http://localhost:15672
 
-## Project Structure
-
-
-booksrore-ddd/
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-│   └── init.sql
-├   └── run.sh
-├── docs/
-│   └── api/
-│       └── postman/
-│           └── collection.json
-├── src/
-│   ├── bookstore/
-│   │   ├── domain/          
-│   │   ├── application/     
-│   │   ├── infrastructure/  
-│   │   └── interfaces/      
-│   
-├
-└── README.md
-└── .env.example
-└── requirement.txt
-
-
 ## API Documentation
 
 ### Authentication
