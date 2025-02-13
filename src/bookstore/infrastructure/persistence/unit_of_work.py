@@ -3,12 +3,12 @@ from typing import Optional, Type
 from abc import ABC,abstractmethod
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from bookstore.infrastructure.persistance.repository.sql.book_repository import SQLBookRepository
-from bookstore.infrastructure.persistance.repository.user_repository import SQLUserRepository
-from bookstore.infrastructure.persistance.repository.sql.customer_repository import SQLCustomerRepository
-from bookstore.infrastructure.persistance.repository.sql.reservation_repository import SQLReservationRepository
-from bookstore.infrastructure.persistance.repository.mongo.book_search_repository import MongoBookRepository
-from bookstore.infrastructure.persistance.repository.redis.cache_repository import RedisCacheRepository
+from bookstore.infrastructure.persistence.repository.sql.book_repository import SQLBookRepository
+from bookstore.infrastructure.persistence.repository.sql.user_repository import SQLUserRepository
+from bookstore.infrastructure.persistence.repository.sql.customer_repository import SQLCustomerRepository
+from bookstore.infrastructure.persistence.repository.sql.reservation_repository import SQLReservationRepository
+from bookstore.infrastructure.persistence.repository.mongo.book_search_repository import MongoBookRepository
+from bookstore.infrastructure.persistence.repository.redis.cache_repository import RedisCacheRepository
 
 
 class UnitOfWork(ABC):

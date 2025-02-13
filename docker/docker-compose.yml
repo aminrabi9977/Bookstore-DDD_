@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: bookstore_app
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-bookstore_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-bookstore}
+      - POSTGRES_HOST=postgres
+      - MONGODB_URL=mongodb://mongodb:27017
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+      - rabbitmq
+    volumes:
+      - ./src:/app/src
+    networks:
+      - bookstore_network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: bookstore_postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-bookstore_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-bookstore}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - bookstore_network
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:6
+    container_name: bookstore_mongodb
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - bookstore_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: bookstore_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - bookstore_network
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: bookstore_rabbitmq
+    ports:
+      - "5672:5672"  
+      - "15672:15672" 
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - bookstore_network
+    restart: unless-stopped
+
+networks:
+  bookstore_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  mongodb_data:
+  redis_data:
+  rabbitmq_data:

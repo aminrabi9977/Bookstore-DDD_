@@ -1,0 +1,244 @@
+{
+    "info": {
+      "name": "BookStore API",
+      "description": "API collection for BookStore application"
+    },
+    "item": [
+      {
+        "name": "Authentication",
+        "item": [
+          {
+            "name": "Register User",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/users/register",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"phone\": \"+1234567890\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/users/login",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Verify OTP",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/users/verify-otp",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"phone\": \"+1234567890\",\n    \"otp\": \"123456\"\n}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Books",
+        "item": [
+          {
+            "name": "List Books",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/api/books?page=1&size=10",
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "size",
+                    "value": "10"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "Search Books",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/api/books/search?query=python&page=1&size=10",
+                "query": [
+                  {
+                    "key": "query",
+                    "value": "python"
+                  },
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "size",
+                    "value": "10"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "Create Book",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/books",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"title\": \"Sample Book\",\n    \"isbn\": \"1234567890123\",\n    \"price\": 29.99,\n    \"author_id\": \"uuid\",\n    \"genre_id\": \"uuid\",\n    \"description\": \"Sample description\",\n    \"total_units\": 10\n}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Reservations",
+        "item": [
+          {
+            "name": "Create Reservation",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/reservations",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"book_id\": \"uuid\",\n    \"start_time\": \"2025-02-15T10:00:00Z\",\n    \"duration_days\": 7\n}"
+              }
+            }
+          },
+          {
+            "name": "List Reservations",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/api/reservations?page=1&size=10",
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "size",
+                    "value": "10"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Customer",
+        "item": [
+          {
+            "name": "Get Profile",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": "{{base_url}}/api/users/me"
+            }
+          },
+          {
+            "name": "Update Subscription",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": "{{base_url}}/api/users/me/customer",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"subscription_type\": \"plus\"\n}"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "key": "base_url",
+        "value": "http://localhost:8000"
+      },
+      {
+        "key": "token",
+        "value": "your_jwt_token_here"
+      }
+    ]
+  }
